@@ -1,4 +1,5 @@
 package ru.hogwarts.school.service;
+
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
@@ -17,6 +18,7 @@ public class StudentService {
     public Student createStudent(Student student) {
         return studentRepository.save(student);
     }
+
     public Student findStudent(long id) {
         return studentRepository.findById(id).get();
     }
@@ -25,16 +27,20 @@ public class StudentService {
         return studentRepository.save(student);
 
     }
+
     public void deleteStudent(long id) {
-       studentRepository.deleteById(id);
+        studentRepository.deleteById(id);
     }
 
     public Collection<Student> getAllStudents() {
         return studentRepository.findAll();
     }
 
-    public Collection<Student> findByAge (int age) {
+    public Collection<Student> findByAge(int age) {
         return studentRepository.findByAge(age);
+    }
+    public Collection<Student> findByAgeBetweenMinMax (int min, int max) {
+        return studentRepository.findByAgeBetween(min,max);
     }
 }
 

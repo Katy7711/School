@@ -1,4 +1,5 @@
 package ru.hogwarts.school.service;
+
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repositories.FacultyRepository;
@@ -16,23 +17,28 @@ public class FacultyService {
     public Faculty createFaculty(Faculty faculty) {
         return facultyRepository.save(faculty);
     }
+
     public Faculty findFaculty(long id) {
         return facultyRepository.findById(id).get();
     }
 
     public Faculty editFaculty(Faculty faculty) {
-       return facultyRepository.save(faculty);
+        return facultyRepository.save(faculty);
     }
 
     public void deleteFaculty(long id) {
         facultyRepository.deleteById(id);
-        }
+    }
 
     public Collection<Faculty> getAllFaculties() {
         return facultyRepository.findAll();
     }
 
     public Collection<Faculty> findByColor(String color) {
-        return facultyRepository.findByColor(color);
+        return facultyRepository.findByColorContainsIgnoreCase(color);
+    }
+
+    public Collection<Faculty> findByName (String name) {
+        return facultyRepository.findByNameContainsIgnoreCase(name);
     }
 }
