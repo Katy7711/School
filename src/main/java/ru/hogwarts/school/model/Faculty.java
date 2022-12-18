@@ -11,20 +11,24 @@ import java.util.Collection;
 public class Faculty {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String name;
     private String color;
 
     @OneToMany(mappedBy = "faculty")
     private Collection<Student> students;
 
-    public Faculty(long id, String name, String color) {
+    public Faculty(Long id, String name, String color) {
         this.id = id;
         this.name = name;
         this.color = color;
     }
 
-    public long getId() {
+    public Faculty() {
+
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -36,7 +40,7 @@ public class Faculty {
         return color;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
