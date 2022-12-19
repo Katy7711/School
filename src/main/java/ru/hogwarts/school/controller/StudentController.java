@@ -1,14 +1,11 @@
 package ru.hogwarts.school.controller;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.AvatarService;
 import ru.hogwarts.school.service.StudentService;
 
-import java.io.IOException;
 import java.util.Collection;
 
 @RestController
@@ -32,16 +29,18 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<Student>> findStudents(@RequestParam(required = false) int age, @RequestParam (required = false) int min, int max) {
+    public ResponseEntity<Collection<Student>> findStudents(@RequestParam(required = false) int age) {
         if (age > 0) {
             return ResponseEntity.ok(studentService.findByAge(age));
-        }
-        if (age > min && age < max) {
-            return ResponseEntity.ok(studentService.findByAgeBetweenMinMax(min,max));
         }
             return ResponseEntity.ok(studentService.getAllStudents());
         }
 
+    @GetMapping
+    public ResponseEntity<Collection<Student>> findStudentsByAgeBetween(@RequestParam (required = false) int min,
+                                                            @RequestParam (required = false) int max) {
+        return ResponseEntity.ok(studentService.findByAgeBetweenMinMax(min,max));
+        }
 
     @PostMapping
     public Student addStudent(@RequestBody Student student) {
