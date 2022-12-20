@@ -74,7 +74,7 @@ class StudentControllerTest {
                 .andExpect(jsonPath("$.age").value(age));
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .put("/student")
+                        .put("/student/ + id")
                         .content(studentObject.toString())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))

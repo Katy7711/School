@@ -14,6 +14,7 @@ import ru.hogwarts.school.controller.FacultyController;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repositories.FacultyRepository;
 import ru.hogwarts.school.service.FacultyService;
+import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -35,6 +36,9 @@ class FacultyControllerTests {
 
     @SpyBean
     private FacultyService facultyService;
+
+    @SpyBean
+    private StudentService studentService;
 
     @InjectMocks
     private FacultyController facultyController;
@@ -68,7 +72,7 @@ class FacultyControllerTests {
                 .andExpect(jsonPath("$.color").value(color));
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .put("/faculty")
+                        .put("/faculty/" + id)
                         .content(facultyObject.toString())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
