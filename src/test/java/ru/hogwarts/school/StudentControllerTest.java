@@ -92,7 +92,7 @@ class StudentControllerTest {
                 .andExpect(jsonPath("$.age").value(age));
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/student?age" + age)
+                        .get("/find-by-age?age" + age)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(id))
