@@ -11,4 +11,4 @@ ALTER TABLE student
     ADD CONSTRAINT name_unique UNIQUE (name);
 
 ALTER TABLE student
-    ALTER COLUMN "age" SET DEFAULT '20';
+    ALTER COLUMN age SET DEFAULT 20;
