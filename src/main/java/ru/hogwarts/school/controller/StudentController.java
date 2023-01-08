@@ -7,6 +7,7 @@ import ru.hogwarts.school.service.AvatarService;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -61,5 +62,12 @@ public class StudentController {
         studentService.deleteStudent(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/name-starting-with-letter")
+    public ResponseEntity<List<Student>> findAllByNameStartingWith (@RequestParam (required = false) String letter) {
+        return ResponseEntity.ok(studentService.findAllByNameStartingWith(letter));
+    }
+
+
 
 }

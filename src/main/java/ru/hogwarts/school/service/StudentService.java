@@ -72,5 +72,14 @@ public class StudentService {
         return studentRepository.get5LastValues();
     }
 
+    public List<Student> findAllByNameStartingWith (String latter) {
+        return studentRepository.findAllIgnoreCaseByNameStartingWith(latter);
+    }
+
+    public List<Student> findAverageAge (List<Student> students) {
+        return students.stream().count().
+
+    }
+
 }
 
