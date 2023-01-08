@@ -9,6 +9,8 @@ import ru.hogwarts.school.model.LastValues;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -72,11 +74,16 @@ public class StudentService {
         return studentRepository.get5LastValues();
     }
 
-    public List<Student> findAllByNameStartingWith (String latter) {
-        return studentRepository.findAllIgnoreCaseByNameStartingWith(latter);
+    public List<Student> findAllByNameStartingWith (List<String> students) {
+        students.stream().map(String::toUpperCase).filter(s->s.charAt(0)=='А').
+                sorted().forEach(System.out::println);
+        return studentRepository.findAllIgnoreCaseByNameStartingWith();
     }
 
+
     public List<Student> findAverageAge (List<Student> students) {
+        students.stream().map(student -> student.getAge()).count();
+
         return students.stream().count().
 
     }
