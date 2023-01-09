@@ -90,6 +90,46 @@ public class StudentService {
                 .average()
                 .orElse(0);
     }
+    public void printStudentSynchronized(Student student, Student student2) {
+        System.out.println(student.getName());
+        System.out.println(student2.getName());
+    }
 
+    public synchronized void printAllStudentSynchronizedMethod() {
+        List<Student> students = studentRepository.findAll();
+        printStudentSynchronized(students.get(1), students.get(2));
+
+        new Thread(() -> {
+            printStudentSynchronized(students.get(3), students.get(4));
+        }).start();
+
+        new Thread(() -> {
+            printStudentSynchronized(students.get(5), students.get(6));
+        }).start();
+
+    }
+
+    public void printAllStudentParallelMethod() {
+
+        List<Student> students = studentRepository.findAll();
+        printStudentParallel(students.get(0));
+        printStudentParallel(students.get(1));
+
+        new Thread(() -> {
+            printStudentParallel(students.get(3));
+            printStudentParallel(students.get(4));
+        }).start();
+
+        new Thread(() -> {
+            printStudentParallel(students.get(5));
+            printStudentParallel(students.get(6));
+        }).start();
+
+    }
+
+    public void printStudentParallel(Student student) {
+        System.out.println(student.getName());
+
+    }
 }
 
