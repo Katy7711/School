@@ -8,6 +8,7 @@ import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/student")
@@ -63,11 +64,20 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/name-starting-with-letter")
-    public ResponseEntity<List<Student>> findAllByNameStartingWith (@RequestParam (required = false) String letter) {
-        return ResponseEntity.ok(studentService.findAllByNameStartingWith(letter));
+    @GetMapping("/studentStartWitch")
+    public ResponseEntity<List<String>> getAllStudentStartWitchLetter(@RequestParam String letter) {
+        return ResponseEntity.ok(studentService.getAllStudentStartWitchLetter(letter));
     }
 
+    @GetMapping("/studentAverAgeAgeOfAllStudents")
+    public ResponseEntity<Double>getAverageAgeOfAllStudents(){
+        return ResponseEntity.ok(studentService.getAverageAgeOfAllStudents());
+    }
 
+    @GetMapping("/returnInteger")
+    Integer returnInteger() {
+        return Stream.iterate(1, a -> a + 1).limit(1_000_000)
+                .parallel().reduce(0, (a, b) -> a + b);
+    }
 
 }

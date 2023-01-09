@@ -9,10 +9,9 @@ import ru.hogwarts.school.model.LastValues;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -74,18 +73,22 @@ public class StudentService {
         return studentRepository.get5LastValues();
     }
 
-    public List<Student> findAllByNameStartingWith (List<String> students) {
-        students.stream().map(String::toUpperCase).filter(s->s.charAt(0)=='А').
-                sorted().forEach(System.out::println);
-        return studentRepository.findAllIgnoreCaseByNameStartingWith();
+    public List<String> getAllStudentStartWitchLetter(String letter) {
+        logger.info("Method was called getAllStudentStartWitchLetter ");
+        return studentRepository.findAll()
+                .parallelStream()
+                .filter(student -> student.getName().startsWith(letter.toUpperCase()))
+                .map(student -> student.getName().toUpperCase())
+                .collect(Collectors.toList());
     }
 
-
-    public List<Student> findAverageAge (List<Student> students) {
-        students.stream().map(student -> student.getAge()).count();
-
-        return students.stream().count().
-
+    public double getAverageAgeOfAllStudents() {
+        logger.info("Method was called getAverageAgeOfAllStudents");
+        return studentRepository.findAll()
+                .stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElse(0);
     }
 
 }
